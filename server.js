@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
+app.use(bodyParser.json());    
 
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
