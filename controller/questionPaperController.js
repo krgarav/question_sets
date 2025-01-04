@@ -435,6 +435,125 @@ export const genrateQuestionSetsController = async (req, res) => {
       return formattedValue;
     }
 
+    // let fileReadPromises = filePaths.map(async (filePath) => {
+    //   const workbook = XLSX.readFile(filePath); // Reading the Excel file using SheetJS
+    //   const sheetNames = workbook.SheetNames;
+    //   const worksheet = workbook.Sheets[sheetNames[0]]; // Assuming you're using the first sheet
+
+    //   if (!worksheet) {
+    //     throw new Error("Worksheet not found in the Excel file.");
+    //   }
+
+    //   const data = [];
+    //   const heading = [];
+
+    //   // Convert the sheet to JSON and preserve rich text as needed
+    //   const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+    //     header: 1, // Treat the first row as the header
+    //     defval: null,
+    //   });
+    //   jsonData.unshift([]);
+    //   jsonData.unshift([]);
+    //   jsonData.unshift([]);
+    //   jsonData.unshift([]);
+    //   jsonData.unshift([]);
+    //   jsonData.unshift([]);
+
+    //   jsonData.forEach((row, rowNumber) => {
+    //     // Start processing from row 8 (rowNumber 7 in zero-indexed)
+    //     // console.log(rowNumber);
+    //     if (rowNumber < 6) {
+    //       return; // Skip rows before row 7 (header row)
+    //     }
+
+    //     const rowData = {};
+    //     let hasValidData = false; // Flag to check if the row has valid data
+
+    //     row.forEach((cell, colNumber) => {
+    //       if (rowNumber === 100) {
+    //         // This is the header row (row 7), so store it
+    //         heading[colNumber] = cell;
+    //       } else {
+    //         console.log("called");
+    //         const cellAddress = XLSX.utils.encode_cell({
+    //           r: rowNumber,
+    //           c: colNumber,
+    //         });
+    //         // console.log(cellAddress);
+    //         // console.log(worksheet[cellAddress]);
+    //         const cell = worksheet[cellAddress];
+    //         console.log(cell);
+    //         // const formattedValue =
+    //         //   worksheet[cellAddress] && worksheet[cellAddress].w
+    //         //     ? worksheet[cellAddress].w
+    //         //     : cell;
+    //         // const cell = worksheet[cellAddress];
+    //         const formattedValue = getFormattedValue(cell);
+    //         // console.log(formattedValue);
+    //         // Check if the cell has rich text and format accordingly
+    //         // if (cell && typeof cell === "object" && cell.richText) {
+    //         //   const formattedText = cell.richText
+    //         //     .map((textObject) => {
+    //         //       const vertAlign =
+    //         //         textObject.font && textObject.font.vertAlign;
+    //         //       const text = textObject.text;
+    //         //       if (rowNumber === 8) {
+    //         //         console.log(cell);
+    //         //       }
+    //         //       if (text === "°") {
+    //         //         return "°"; // Keep the degree symbol as is
+    //         //       }
+
+    //         //       // Check for superscript formatting for "²"
+    //         //       if (text === "2" && vertAlign === "superscript") {
+    //         //         return text + "²"; // Add squared symbol if the text is "2" and formatted as superscript
+    //         //       }
+
+    //         //       return vertAlign === "superscript"
+    //         //         ? superscriptMapping[text]
+    //         //         : text;
+    //         //     })
+    //         //     .join("");
+    //         //   rowData[`column${colNumber + 1}`] = formattedText;
+    //         // } else {
+    //         //   // Check if the value is numeric and might represent a degree or square
+    //         //   let valueToStore = formattedValue;
+
+    //         //   // Check if valueToStore is a number and could represent degrees
+    //         //   if (!isNaN(valueToStore)) {
+    //         //     // Apply conversion only if it's in a "degree-like" format (e.g., 300 should become 30°)
+    //         //     if (valueToStore >= 100 && valueToStore % 100 === 0) {
+    //         //       // Convert minute values to degree values by dividing by 10
+    //         //       valueToStore = valueToStore / 10 + "°"; // Convert to degrees and add symbol
+    //         //     }
+    //         //     // Check if the value is "4" and should be treated as a square
+    //         //     if (valueToStore === 4) {
+    //         //       valueToStore = valueToStore + "²"; // Add square symbol
+    //         //     }
+    //         //   }
+
+    //         //   rowData[`column${colNumber + 1}`] = valueToStore;
+    //         // }
+
+    //         // Check if there's any valid data in the row
+    //         // if (
+    //         //   formattedValue &&
+    //         //   formattedValue !== null &&
+    //         //   formattedValue !== ""
+    //         // ) {
+    //         //   hasValidData = true;
+    //         // }
+    //       }
+    //     });
+
+    //     // Only push the rowData if it contains valid data
+    //     if (hasValidData) {
+    //       data.push(rowData);
+    //     }
+    //   });
+
+    //   return data;
+    // });
     let fileReadPromises = filePaths.map(async (filePath) => {
       const workbook = XLSX.readFile(filePath); // Reading the Excel file using SheetJS
       const sheetNames = workbook.SheetNames;
@@ -452,102 +571,86 @@ export const genrateQuestionSetsController = async (req, res) => {
         header: 1, // Treat the first row as the header
         defval: null,
       });
+      console.log(jsonData);
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.unshift([]);
-
       jsonData.forEach((row, rowNumber) => {
         // Start processing from row 8 (rowNumber 7 in zero-indexed)
-        // console.log(rowNumber);
-        if (rowNumber < 6) {
-          return; // Skip rows before row 7 (header row)
-        }
+        // if (rowNumber < 6) {
+        //   return; // Skip rows before row 7 (header row)
+        // }
 
         const rowData = {};
         let hasValidData = false; // Flag to check if the row has valid data
 
         row.forEach((cell, colNumber) => {
-          if (rowNumber === 100) {
-            // This is the header row (row 7), so store it
-            heading[colNumber] = cell;
+          const cellAddress = XLSX.utils.encode_cell({
+            r: rowNumber,
+            c: colNumber,
+          });
+          const formattedValue =
+            worksheet[cellAddress] && worksheet[cellAddress].w
+              ? worksheet[cellAddress].w
+              : cell;
+
+          // Check if the cell has rich text and format accordingly
+          if (cell && typeof cell === "object" && cell.richText) {
+            const formattedText = cell.richText
+              .map((textObject) => {
+                const vertAlign = textObject.font && textObject.font.vertAlign;
+                const text = textObject.text;
+
+                if (text === "°") {
+                  return "°"; // Keep the degree symbol as is
+                }
+
+                // Check for superscript formatting for "²"
+                if (text === "2" && vertAlign === "superscript") {
+                  return text + "²"; // Add squared symbol if the text is "2" and formatted as superscript
+                }
+
+                return vertAlign === "superscript"
+                  ? superscriptMapping[text]
+                  : text;
+              })
+              .join("");
+            rowData[`column${colNumber + 1}`] = formattedText;
           } else {
-            console.log("called");
-            const cellAddress = XLSX.utils.encode_cell({
-              r: rowNumber,
-              c: colNumber,
-            });
-            // console.log(cellAddress);
-            // console.log(worksheet[cellAddress]);
-            const cell = worksheet[cellAddress];
-            console.log(cell);
-            // const formattedValue =
-            //   worksheet[cellAddress] && worksheet[cellAddress].w
-            //     ? worksheet[cellAddress].w
-            //     : cell;
-            // const cell = worksheet[cellAddress];
-            const formattedValue = getFormattedValue(cell);
-            // console.log(formattedValue);
-            // Check if the cell has rich text and format accordingly
-            // if (cell && typeof cell === "object" && cell.richText) {
-            //   const formattedText = cell.richText
-            //     .map((textObject) => {
-            //       const vertAlign =
-            //         textObject.font && textObject.font.vertAlign;
-            //       const text = textObject.text;
-            //       if (rowNumber === 8) {
-            //         console.log(cell);
-            //       }
-            //       if (text === "°") {
-            //         return "°"; // Keep the degree symbol as is
-            //       }
+            // Check if the value is numeric and might represent a degree or square
+            let valueToStore = formattedValue;
 
-            //       // Check for superscript formatting for "²"
-            //       if (text === "2" && vertAlign === "superscript") {
-            //         return text + "²"; // Add squared symbol if the text is "2" and formatted as superscript
-            //       }
+            // Check if valueToStore is a number and could represent degrees
+            if (!isNaN(valueToStore)) {
+              // Apply conversion only if it's in a "degree-like" format (e.g., 300 should become 30°)
+              if (valueToStore >= 100 && valueToStore % 100 === 0) {
+                // Convert minute values to degree values by dividing by 10
+                valueToStore = valueToStore / 10 + "°"; // Convert to degrees and add symbol
+              }
+              // Check if the value is "4" and should be treated as a square
+              if (valueToStore === 4) {
+                valueToStore = valueToStore + "²"; // Add square symbol
+              }
+            }
 
-            //       return vertAlign === "superscript"
-            //         ? superscriptMapping[text]
-            //         : text;
-            //     })
-            //     .join("");
-            //   rowData[`column${colNumber + 1}`] = formattedText;
-            // } else {
-            //   // Check if the value is numeric and might represent a degree or square
-            //   let valueToStore = formattedValue;
+            rowData[`column${colNumber + 1}`] = valueToStore;
+          }
 
-            //   // Check if valueToStore is a number and could represent degrees
-            //   if (!isNaN(valueToStore)) {
-            //     // Apply conversion only if it's in a "degree-like" format (e.g., 300 should become 30°)
-            //     if (valueToStore >= 100 && valueToStore % 100 === 0) {
-            //       // Convert minute values to degree values by dividing by 10
-            //       valueToStore = valueToStore / 10 + "°"; // Convert to degrees and add symbol
-            //     }
-            //     // Check if the value is "4" and should be treated as a square
-            //     if (valueToStore === 4) {
-            //       valueToStore = valueToStore + "²"; // Add square symbol
-            //     }
-            //   }
-
-            //   rowData[`column${colNumber + 1}`] = valueToStore;
-            // }
-
-            // Check if there's any valid data in the row
-            // if (
-            //   formattedValue &&
-            //   formattedValue !== null &&
-            //   formattedValue !== ""
-            // ) {
-            //   hasValidData = true;
-            // }
+          // Check if there's any valid data in the row
+          if (
+            formattedValue &&
+            formattedValue !== null &&
+            formattedValue !== ""
+          ) {
+            hasValidData = true;
           }
         });
 
         // Only push the rowData if it contains valid data
-        if (hasValidData) {
+        if (rowNumber > 6 && hasValidData) {
           data.push(rowData);
         }
       });
