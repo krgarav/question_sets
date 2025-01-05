@@ -5,6 +5,74 @@ import XLSX from "xlsx";
 import { XMLParser } from "fast-xml-parser";
 import { Parser } from "htmlparser2";
 
+import xml2js from "xml2js";
+import { convertHtmlToText } from "../services/helperFn.js";
+
+// Outputs: 3.75 cm²
+
+// function convertToSuperscriptAndSubscript(text) {
+//   const superscriptMap = {
+//     0: "⁰",
+//     1: "¹",
+//     2: "²",
+//     3: "³",
+//     4: "⁴",
+//     5: "⁵",
+//     6: "⁶",
+//     7: "⁷",
+//     8: "⁸",
+//     9: "⁹",
+//     "+": "⁺",
+//     "-": "⁻",
+//     "=": "⁼",
+//     "(": "⁽",
+//     ")": "⁾",
+//   };
+
+//   const subscriptMap = {
+//     0: "₀",
+//     1: "₁",
+//     2: "₂",
+//     3: "₃",
+//     4: "₄",
+//     5: "₅",
+//     6: "₆",
+//     7: "₇",
+//     8: "₈",
+//     9: "₉",
+//     "+": "₊",
+//     "-": "₋",
+//     "=": "₌",
+//     "(": "₍",
+//     ")": "₎",
+//   };
+
+//   // Replace numbers in superscript
+//   text = text.replace(/<sup>(\d+)<\/sup>/g, (match, number) => {
+//     return number
+//       .split("")
+//       .map((digit) => superscriptMap[digit] || digit)
+//       .join("");
+//   });
+
+//   // Replace numbers in subscript
+//   text = text.replace(/<sub>(\d+)<\/sub>/g, (match, number) => {
+//     return number
+//       .split("")
+//       .map((digit) => subscriptMap[digit] || digit)
+//       .join("");
+//   });
+//   console.log(text);
+//   return htmlToText(text);
+// }
+// function convertHtmlToText() {
+//   const html =
+//     '<span style="font-size:12pt;">3.75 cm</span><span style="font-size:12pt;"><sup>2</sup></span>';
+
+//   let text = convertToSuperscriptAndSubscript(html);
+//   console.log(text);
+// }
+// convertHtmlToText();
 // export const genrateQuestionSetsController = async (req, res) => {
 //     try {
 //         let filePaths = req.files.map(file => file.path);
@@ -182,6 +250,41 @@ import { Parser } from "htmlparser2";
 //         res.status(500).send({ success: false, error, message: "Error in generating question sets" });
 //     }
 // };
+
+function processTextWithSubscripts(xmlString) {
+  const parser = new xml2js.Parser({ explicitArray: false });
+  let result = "";
+
+  return parser
+    .parseStringPromise(`<root>${xmlString}</root>`)
+    .then((parsed) => {
+      let runs = parsed.root.r;
+
+      if (!Array.isArray(runs)) {
+        runs = [runs];
+      }
+
+      runs.forEach((run) => {
+        const isSubscript =
+          run.rPr &&
+          run.rPr.vertAlign &&
+          run.rPr.vertAlign.$.val === "subscript";
+        const text = run.t || "";
+
+        if (isSubscript) {
+          result += `<sub>${text}</sub>`;
+        } else {
+          result += text;
+        }
+      });
+
+      return result;
+    })
+    .catch((err) => {
+      console.error("Error parsing XML:", err);
+      return "";
+    });
+}
 
 function extractSymbolFromNumFmt(numFmt) {
   if (!numFmt) return null;
@@ -367,22 +470,22 @@ export const genrateQuestionSetsController = async (req, res) => {
     //   return data;
     // });
     // Function to convert to subscript
-    function convertToSubscript(text) {
-      const subscriptMap = {
-        0: "₀",
-        1: "₁",
-        2: "₂",
-        3: "₃",
-        4: "₄",
-        5: "₅",
-        6: "₆",
-        7: "₇",
-        8: "₈",
-        9: "₉",
-      };
+    // function convertToSubscript(text) {
+    //   const subscriptMap = {
+    //     0: "₀",
+    //     1: "₁",
+    //     2: "₂",
+    //     3: "₃",
+    //     4: "₄",
+    //     5: "₅",
+    //     6: "₆",
+    //     7: "₇",
+    //     8: "₈",
+    //     9: "₉",
+    //   };
 
-      return text.replace(/\d/g, (match) => subscriptMap[match] || match);
-    }
+    //   return text.replace(/\d/g, (match) => subscriptMap[match] || match);
+    // }
     function getFormattedValue(cell) {
       // Extract the value and the rich text
       const symbolVal = cell.w;
@@ -571,7 +674,7 @@ export const genrateQuestionSetsController = async (req, res) => {
         header: 1, // Treat the first row as the header
         defval: null,
       });
-      console.log(jsonData);
+
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.unshift([]);
@@ -579,78 +682,46 @@ export const genrateQuestionSetsController = async (req, res) => {
       jsonData.unshift([]);
       jsonData.unshift([]);
       jsonData.forEach((row, rowNumber) => {
-        // Start processing from row 8 (rowNumber 7 in zero-indexed)
-        // if (rowNumber < 6) {
-        //   return; // Skip rows before row 7 (header row)
-        // }
-
-        const rowData = {};
-        let hasValidData = false; // Flag to check if the row has valid data
+        const rowData = {}; // Object to store row data
 
         row.forEach((cell, colNumber) => {
           const cellAddress = XLSX.utils.encode_cell({
             r: rowNumber,
             c: colNumber,
           });
-          const formattedValue =
-            worksheet[cellAddress] && worksheet[cellAddress].w
-              ? worksheet[cellAddress].w
-              : cell;
 
-          // Check if the cell has rich text and format accordingly
-          if (cell && typeof cell === "object" && cell.richText) {
-            const formattedText = cell.richText
-              .map((textObject) => {
-                const vertAlign = textObject.font && textObject.font.vertAlign;
-                const text = textObject.text;
+          let formattedValue = null;
 
-                if (text === "°") {
-                  return "°"; // Keep the degree symbol as is
-                }
+          // Ensure the cell exists in the worksheet before accessing properties
+          if (worksheet[cellAddress]) {
+            const cell = worksheet[cellAddress]; // Access the cell object
+            const cellHtml = cell.h; // HTML representation
+            const cellSymbol = cell.w; // Displayed value (e.g., "3.75 cm²")
+            const cellValue = cell.v; // Raw value (unformatted)
 
-                // Check for superscript formatting for "²"
-                if (text === "2" && vertAlign === "superscript") {
-                  return text + "²"; // Add squared symbol if the text is "2" and formatted as superscript
-                }
-
-                return vertAlign === "superscript"
-                  ? superscriptMapping[text]
-                  : text;
-              })
-              .join("");
-            rowData[`column${colNumber + 1}`] = formattedText;
-          } else {
-            // Check if the value is numeric and might represent a degree or square
-            let valueToStore = formattedValue;
-
-            // Check if valueToStore is a number and could represent degrees
-            if (!isNaN(valueToStore)) {
-              // Apply conversion only if it's in a "degree-like" format (e.g., 300 should become 30°)
-              if (valueToStore >= 100 && valueToStore % 100 === 0) {
-                // Convert minute values to degree values by dividing by 10
-                valueToStore = valueToStore / 10 + "°"; // Convert to degrees and add symbol
-              }
-              // Check if the value is "4" and should be treated as a square
-              if (valueToStore === 4) {
-                valueToStore = valueToStore + "²"; // Add square symbol
-              }
+            // Use `convertHtmlToText` for HTML content
+            if (cellHtml) {
+              formattedValue = convertHtmlToText(cellHtml);
+            } else if (cellSymbol) {
+              // Fallback to formatted display value
+              formattedValue = cellSymbol;
+            } else if (cellValue !== undefined) {
+              // Fallback to raw value
+              formattedValue = cellValue;
+            } else {
+              // Handle completely empty cells
+              formattedValue = null;
             }
-
-            rowData[`column${colNumber + 1}`] = valueToStore;
+          } else {
+            // Handle missing cells (non-existent in worksheet)
+            formattedValue = null;
           }
 
-          // Check if there's any valid data in the row
-          if (
-            formattedValue &&
-            formattedValue !== null &&
-            formattedValue !== ""
-          ) {
-            hasValidData = true;
-          }
+          // Dynamically assign the formatted value to the rowData object
+          rowData[`column${colNumber + 1}`] = formattedValue;
         });
 
-        // Only push the rowData if it contains valid data
-        if (rowNumber > 6 && hasValidData) {
+        if (rowData.column1 !== null) {
           data.push(rowData);
         }
       });
@@ -661,6 +732,8 @@ export const genrateQuestionSetsController = async (req, res) => {
     let filesData = await Promise.all(fileReadPromises);
 
     let data = filesData[0];
+    data.splice(0, 7);
+    // console.log(data.splice(7));
     console.log(data);
     // return;
     let inputFileWithAnswer = "";

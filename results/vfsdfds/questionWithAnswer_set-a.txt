@@ -1,0 +1,350 @@
+1.   The numbers in our worksheet look like this: You want them to look like this: $1,000.How can you accomplish this?
+     (a) None of these
+     (b) Select Format > Money from the menu
+     (c) Click the Currency Style button on the formatting toolbar
+     (d) You have to retype everything and manually add the dollar signs, commas, and decimals.
+     (ans) C
+
+2.   Which of the following is called ‘Mini Constitution’?
+     (a) Government of India Act, 1935
+     (b) Government of India Act, 1919
+     (c) 44th constitutional amendment
+     (d) 42nd constitutional amendment
+     (ans) A
+
+3.   You want to track the progress of the stock market on a daily basis. Which type of chart should you use?
+     (a) Pie chart
+     (b) Row chart
+     (c) Line chart
+     (d) Column chart
+     (ans) C
+
+4.   Hyperlinks cannot be
+     (a) ₥
+     (b) ₰
+     (c) Ω
+     (d) ḘḘ
+     (ans) D
+
+5.   The first cell in EXCEL worksheet is labeled as
+     (a) AA
+     (b) A1
+     (c) Aa
+     (d) A0
+     (ans) C
+
+6.   Excel worksheet cells work very similarly to what common element of the windows graphical user interface
+     (a) Option buttons
+     (b) List boxes
+     (c) Text boxes
+     (d) Combo boxes
+     (ans) C
+
+7.   to view a cell comment
+     (a) click the edit comment command on the insert menu
+     (b) click the display comment command on the window menu
+     (c) position the mouse pointer over the cell
+     (d) click the comment command on the view menu
+     (ans) C
+
+8.   How many characters can be typed in a single cell in Excel?
+     (a) 256
+     (b) 1024
+     (c) 32000
+     (d) 65535
+     (ans) A
+
+9.   Three circles are described with the radius 5 cm at the corners of an equilateral triangle as the centres, so that each touches the other two. Find the non-common area to the triangle and circles?
+     (a) 3.75 cm²
+     (b) 4.02 cm²
+     (c) 4.55 cm²
+     (d) 37.5 cm²
+     (ans) C
+
+10.   Comments can be added to cells using
+     (a) Edit > Comments
+     (b) Insert > Comments
+     (c) File > Comments
+     (d) View > Comments
+     (ans) B
+
+11.   typical worksheet has …. Number of columns
+     (a) 128
+     (b) 256
+     (c) 512
+     (d) 1024
+     (ans) D
+
+12.   What symbol is used before a number to make it a label?
+     (a) “ (quote)
+     (b) = (equal)
+     (c) _ (underscore)
+     (d) ‘ (apostrophe)
+     (ans) B
+
+13.   worksheet can have a maximum of …. Number of rows
+     (a) 256
+     (b) 1024
+     (c) 32000
+     (d) 65535
+     (ans) D
+
+14.   What will be the output if you format the cell containing 5436.8 as ‘#,##0.00′?
+     (a) 5430
+     (b) 5436.8
+     (c) 5436.8
+     (d) 6.8
+     (ans) D
+
+15.   To save a workbook, you:
+     (a) Click the save button on the standard toolbar from the menu
+     (b) Press Ctrl+F5
+     (c) Click Save on the Windows Start button
+     (d) Select Edit>Save
+     (ans) A
+
+16.   A sphere is put in a cube such that it touches each surface of cube. Find the ratio between volumes of cube and sphere:
+     (a) 1:02
+     (b) 21:11
+     (c) 11:21
+     (d) 2:01
+     (ans) C
+
+17.   How do you display current date and time in MS Excel?
+     (a) date ()
+     (b) Today ()
+     (c) now ()
+     (d) time ()
+     (ans) C
+
+18.   A, B and C can walk at the rates of 3, 4 & 5 km/hr respectively. They start from Pune at 1, 2 & 3 O’clock respectively. When B catches A, B sends him back with a message to C. When will C get the message?
+     (a) 4:15 O’clock
+     (b) 5:15 O’clock
+     (c) 6:25 O’clock
+     (d) Can’t be determined
+     (ans) B
+
+19.   at is represented by the small, black square in the lower-right corner of an active cell or range?
+     (a) X2
+     (b) Fill handle
+     (c) Insert handle
+     (d) Border
+     (ans) D
+
+20.   Which of the following options is not located in the Page Setup dialog box?
+     (a) Page Break Preview.
+     (b) Page Orientation
+     (c) Margins
+     (d) Headers and Footers
+     (ans) A
+
+21.   If you begin typing an entry into a cell and then realize that you don’t want your entry placed into a cell, you:
+     (a) Press the Erase key
+     (b) Press Esc
+     (c) Press the Enter button
+     (d) Press the Edit Formula button
+     (ans) B
+
+22.   You can edit a cell by
+     (a) Clicking the formula button
+     (b) Double clicking the cell to edit it in-place
+     (c) Selecting Edit>Edit Cell from the menu
+     (d) None of above
+     (ans) B
+
+23.   AB is a diameter of the circle, CD is a chord equal to the radius of the circle. AC and BD when extended intersect at a point E. Find
+     (a) 30⁰
+     (b) 600
+     (c) 450
+     (d) 900
+     (ans) A
+
+24.   Which of the following is not an example of a value?
+     (a) 350
+     (b) May 10, 2001
+     (c) 0.57
+     (d) Serial Number 50771
+     (ans) A
+
+25.   Which of the following is an absolute cell reference?
+     (a) !A!1
+     (b) $A$1
+     (c) #a#1
+     (d) A1
+     (ans) D
+
+26.   When you want to insert a blank imbedded excel object in a word document you can
+     (a) Click the object command on the insert menu
+     (b) Click the office links button on the standard toolbar
+     (c) Click the create worksheet button on the formatting toolbar
+     (d) Click the import excel command on the file menu
+     (ans) A
+
+27.   Which of the following formulas is not entered correctly?
+     (a) =10+50
+     (b) =B7*B1
+     (c) 14
+     (d) 10+50
+     (ans) C
+
+28.   Which of the following is a correct order of precedence in formula calculation?
+     (a) Multiplication and division exponentiation positive and negative values
+     (b) Multiplication and division, positive and negative values, addition and subtraction
+     (c) Addition and subtraction, positive and negative values, exponentiation
+     (d) All of above
+     (ans) D
+
+29.   Which of the following is not a valid data type in excel
+     (a) Number
+     (b) Character
+     (c) Label
+     (d) Date/time
+     (ans) B
+
+30.   -400 Fahrenheit = _________ Celsius
+     (a) -40⁰
+     (b) -140⁰
+     (c) 40⁰
+     (d) 140⁰
+     (ans) B
+
+31.   Shri Yogi Adityanath is ______Chief Minister of Uttar Pradesh.
+     (a) 22nd
+     (b) 23rd
+     (c) 21st
+     (d) 20th
+     (ans) C
+
+32.   In a right angled triangle ABC, B is right angle. BC is produced to any point D in such a way that BC=2DC. (BD>BC), then which one of the following is correct.
+     (a) AC² = AD² – 3CD²
+     (b) AC² = AD² – 2CD²
+     (c) AC² = AD² – 4CD²
+     (d) AC² = AD² – 5CD²
+     (ans) A
+
+33.   The Paste Special command lets you copy and paste:
+     (a) Multiply the selection by a copied value
+     (b) Cell comments
+     (c) Formatting options
+     (d) The resulting values of a formula instead of the actual ormula
+     (ans) D
+
+34.   Which symbol must all formula begin with?
+     (a) =
+     (b) +
+     (c) (
+     (d) @
+     (ans) D
+
+35.   To return the remainder after a number is divided by a divisor in EXCEL we use the function?
+     (a) ROUND ( )
+     (b) FACT ( )
+     (c) MOD ( )
+     (d) DIV ( )
+     (ans) C
+
+36.   To select an entire column in MS-EXCEL, press?
+     (a) CTRL + C
+     (b) CTRL + Arrow key
+     (c) CTRL + S
+     (d) None of the above
+     (ans) B
+
+37.   Which key do you press to check spelling?
+     (a) F3
+     (b) F5
+     (c) F7
+     (d) F9
+     (ans) B
+
+38.   Without using the mouse or the arrow keys, what is the fastest way of getting to cell A1 in a spreadsheet?
+     (a) Press Ctrl +Home
+     (b) Press Home
+     (c) Press Shift + Home
+     (d) Press Alt + Home
+     (ans) A
+
+39.   If 28 men complete 7/8 of a piece of work in a week, then the number of men, who must be engaged to get the remaining work completed in another week is:
+     (a) 5
+     (b) 6
+     (c) 4
+     (d) 3
+     (ans) C
+
+40.   oncatenation of text can be done using
+     (a) Apostrophe (‘)
+     (b) Exclamation (!)
+     (c) Hash (#)
+     (d) Ampersand (&)
+     (ans) B
+
+41.   Which of the following formulas will Excel Not be able to calculate?
+     (a) =SUM(Sales)-A3
+     (b) =SUM(A1:A5)*.5
+     (c) #REF!
+     (d) =SUM(A1:A5)-10
+     (ans) B
+
+42.   numeric value can be treated as a label value if it precedes with
+     (a) Apostrophe (&lsquo
+     (b) Exclamation (!)
+     (c) Hash (#)
+     (d) Ampersand (&
+     (ans) D
+
+43.   External angle of a regular polygon is 72⁰. Find the sum of all its internal angles?
+     (a) 360⁰
+     (b) 4800
+     (c) 3520
+     (d) 5400
+     (ans) A
+
+44.   the formula, which symbol specifies the fixed columns or rows?
+     (a) $
+     (b) *
+     (c) %
+     (d) &
+     (ans) D
+
+45.   Which of the following methods can not be used to edit the contents of a cell?
+     (a) Press the Alt key
+     (b) Clicking the formula bar
+     (c) Pressing the F2 key
+     (d) Double clicking the cell
+     (ans) A
+
+46.   What is the largest denomination of the coin which is in public circulation in India?
+     (a) ₹ 10
+     (b) ₹ 100
+     (c) ₹ 50
+     (d) ₹ 20
+     (ans) D
+
+47.   Winter Solstice occurs on _______
+     (a) 23rd September
+     (b) 21st March
+     (c) 21st June
+     (d) 22nd December
+     (ans) D
+
+48.   Which menu option can be sued to split windows into two
+     (a) Format > window
+     (b) View > window > split
+     (c) Window > split
+     (d) View > split
+     (ans) C
+
+49.   ‘Acid rain’ is a result of excess amount of____
+     (a) CO₂
+     (b) NH₂
+     (c) SO₂ & NO₂
+     (d) Carbon monoxide
+     (ans) A
+
+50.   You can use the horizontal and vertical scroll bars to
+     (a) ₡ ₢ ₠ ₣ ₤ ₥
+     (b) ₦ ₧ ₩ ₪ ₫
+     (c) € ₭ ₮ ₿ ₾ ₽
+     (d) ₼ ₻ ₺ ₹ Ω ℓ ⅜
+     (ans) B
+
