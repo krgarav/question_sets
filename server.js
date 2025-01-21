@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 
 import questionPaperRoutes from "./routes/questionPaperRoutes.js"
 import { fileURLToPath } from 'url';
-
+import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,6 +15,9 @@ const __dirname = path.dirname(__filename);
 // rest object
 const app = express();
 
+if (!fs.existsSync("uploads/")) {
+    fs.mkdirSync("uploads/");
+  }
 
 // middlewares
 app.use(cors());
